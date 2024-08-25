@@ -1,0 +1,13 @@
+name: "PR D-day Labeler"
+description: "Automatically label PRs with D-day countdown and send Slack notifications"
+author: "MJ"
+inputs:
+  github-token:
+    description: "GitHub token"
+    required: true
+  slack-webhook-url:
+    description: "Slack Webhook URL"
+    required: true
+runs:
+  using: "node18"
+  main: "dist/index.js"

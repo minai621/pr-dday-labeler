@@ -1,0 +1,35 @@
+{
+  "name": "pr-dday-labeler",
+  "version": "1.0.0",
+  "description": "GitHub Action to label PRs with D-day countdown and send Slack notifications",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist",
+    "test": "jest",
+    "lint": "eslint . --ext .ts"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "pr",
+    "label"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0",
+    "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.12",
+    "@vercel/ncc": "^0.33.0",
+    "typescript": "^4.5.4",
+    "jest": "^27.4.5",
+    "@types/jest": "^27.0.3",
+    "ts-jest": "^27.1.1",
+    "eslint": "^8.4.1",
+    "@typescript-eslint/parser": "^5.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.6.0"
+  }
+}
