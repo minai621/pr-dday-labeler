@@ -5,6 +5,7 @@ import axios from "axios";
 type DdayLabel = "D-3" | "D-2" | "D-1" | "D-0";
 
 async function run(): Promise<void> {
+  console.log("Starting action Version 1.0.0");
   try {
     const token = core.getInput("github-token", { required: true });
     const slackWebhookUrl = core.getInput("slack-webhook-url", {
