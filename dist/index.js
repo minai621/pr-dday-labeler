@@ -36178,6 +36178,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const axios_1 = __importDefault(__nccwpck_require__(6545));
 async function run() {
+    console.log("Starting action Version 1.0.0");
     try {
         const token = core.getInput("github-token", { required: true });
         const slackWebhookUrl = core.getInput("slack-webhook-url", {
@@ -36206,13 +36207,16 @@ async function updatePRLabels(octokit, owner, repo, slackWebhookUrl) {
         const currentLabel = pr.labels.find((label) => label.name.startsWith("D-"));
         let newLabel;
         if (!currentLabel) {
+            console.log(`PR #${pr.number}: No D- label found, setting to D-3`);
             newLabel = "D-3";
         }
         else {
             const day = parseInt(currentLabel.name.slice(2));
             newLabel = day > 0 ? `D-${day - 1}` : "D-0";
+            console.log(`PR #${pr.number}: Current label is ${currentLabel.name}, setting to ${newLabel}`);
         }
         if (newLabel !== (currentLabel === null || currentLabel === void 0 ? void 0 : currentLabel.name)) {
+            console.log(`PR #${pr.number}: Updating label to ${newLabel}`);
             await octokit.rest.issues.setLabels({
                 owner,
                 repo,
@@ -36230,6 +36234,9 @@ async function updatePRLabels(octokit, owner, repo, slackWebhookUrl) {
                 html_url: pr.html_url,
                 user: { login: (_b = (_a = pr.user) === null || _a === void 0 ? void 0 : _a.login) !== null && _b !== void 0 ? _b : "Unknown" },
             }, newLabel);
+        }
+        else {
+            console.log(`PR #${pr.number}: Label is already set to ${newLabel}, no update needed.`);
         }
     }
 }
