@@ -49,13 +49,18 @@ async function updatePRLabels(
     let newLabel: DdayLabel;
 
     if (!currentLabel) {
+      console.log(`PR #${pr.number}: No D- label found, setting to D-3`);
       newLabel = "D-3";
     } else {
       const day = parseInt(currentLabel.name.slice(2));
       newLabel = day > 0 ? (`D-${day - 1}` as DdayLabel) : "D-0";
+      console.log(
+        `PR #${pr.number}: Current label is ${currentLabel.name}, setting to ${newLabel}`
+      );
     }
 
     if (newLabel !== currentLabel?.name) {
+      console.log(`PR #${pr.number}: Updating label to ${newLabel}`);
       await octokit.rest.issues.setLabels({
         owner,
         repo,
@@ -77,6 +82,10 @@ async function updatePRLabels(
           user: { login: pr.user?.login ?? "Unknown" },
         },
         newLabel
+      );
+    } else {
+      console.log(
+        `PR #${pr.number}: Label is already set to ${newLabel}, no update needed.`
       );
     }
   }
